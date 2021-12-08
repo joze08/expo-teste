@@ -32,3 +32,23 @@ export const Username = styled.Text`
   text-align: center;
 
 `;
+
+export const LogoutButton = styled.TouchableOpacity`
+  background-color: #FFF;
+  color: #333;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 8% 20% 0;
+  display: flex;
+
+  height: 6%;
+
+  border-radius: 4px;
+`;
+
+export const TextBtn = styled.Text`
+  font-size: 16px;
+  font-weight: 600;
+`;

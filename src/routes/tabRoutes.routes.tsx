@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Profile, News, Messages } from '../pages';
-import { View } from 'react-native';
+//import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +13,7 @@ const TabRoutes = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { 
+        tabBarStyle: {
           backgroundColor: "#72B01D",
           borderTopColor: "transparent"
         },
@@ -22,11 +22,11 @@ const TabRoutes = () => {
       initialRouteName={"Profile"}
     >
 
-      <Tab.Screen name="Profile" component={Profile} 
+      <Tab.Screen name="Profile" component={Profile}
         options={{
           tabBarIcon: () => {
-            return(
-              <Icon name={"person"} size={26} color={'#222'}/>
+            return (
+              <Icon name={"person"} size={26} color={'#222'} />
             );
           }
         }}
@@ -35,28 +35,28 @@ const TabRoutes = () => {
       <Tab.Screen name="News" component={News}
         options={{
           tabBarIcon: () => {
-            return(
-              <Icon name={"article"} size={26} color={'#222'}/>
+            return (
+              <Icon name={"article"} size={26} color={'#222'} />
             );
           }
-          
+
         }}
       />
 
       <Tab.Screen name="Messages" component={Messages}
         options={{
           tabBarIcon: () => {
-            return(
-              <Icon name={"mail"} size={26} color={'#222'}/>
+            return (
+              <Icon name={"mail"} size={26} color={'#222'} />
             );
           },
-          tabBarStyle: { 
+          tabBarStyle: {
             backgroundColor: "#FFF",
             borderTopColor: "transparent"
           },
         }}
       />
-      
+
     </Tab.Navigator>
 
   );

@@ -1,14 +1,22 @@
 import React from 'react';
 
-import { HeaderTitle, ProfilePic, Username, Container } from '../styles/ProfileStyle';
+import useAuth from '../hooks/auth';
+import { HeaderTitle, ProfilePic, Username, Container, LogoutButton, TextBtn } from '../styles/ProfileStyle';
 
-export default function Profile(){
+export default function Profile() {
 
-  return(
+  const { logout, user } = useAuth();
+
+  function handleLogOut() {
+    logout();
+  }
+
+  return (
     <Container>
       <HeaderTitle>Save-Natura</HeaderTitle>
-      <ProfilePic source={ require('../../assets/ProPic.png')}/>
-      <Username>José Airton</Username>
+      <ProfilePic source={require('../../assets/ProPic.png')} />
+      <Username>{user?.name}</Username>
+      <LogoutButton onPress={handleLogOut}><TextBtn>Sair</TextBtn></LogoutButton>
     </Container>
   );
 }

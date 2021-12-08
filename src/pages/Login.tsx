@@ -1,46 +1,60 @@
-import React from 'react';
-import { SafeAreaView, StatusBar, KeyboardAvoidingView} from 'react-native';
+import React, { useContext } from 'react';
+import { SafeAreaView, StatusBar, KeyboardAvoidingView } from 'react-native';
 
+import useAuth from '../hooks/auth';
 import { Container, TitleLogo1, TitleLogo2, Label, Input, NoLog, Button, Logo, Texto, ButtonText } from '../styles/AuthStyles';
 import { AuthTypes } from '../types/AuthStack.types';
 
+function Login({ navigation }: AuthTypes) {
 
+  const { login } = useAuth();
 
-function Login({navigation}: AuthTypes) {
-
-  function handleNavigation(params: string){
+  function handleNavigation(params: string) {
     params === "SignIn" ? navigation.navigate('SignIn') : navigation.navigate('TabRoutes')
   }
 
-  return(
+  function handleLogIn() {
+    login();
+  }
+
+  /*   function handleChange() {
+  
+    } */
+
+  return (
     <SafeAreaView>
       <Container>
-      <KeyboardAvoidingView >
-        <StatusBar hidden={true}/>
-        <Logo>
-          <TitleLogo1>Save</TitleLogo1>
-          <TitleLogo2>Natura</TitleLogo2>
-        </Logo>
+        <KeyboardAvoidingView >
+          <StatusBar hidden={true} />
+          <Logo>
+            <TitleLogo1>Save</TitleLogo1>
+            <TitleLogo2>Natura</TitleLogo2>
+          </Logo>
 
-        <Label>Email:</Label>
-        <Input />
+          <Label>Email:</Label>
+          <Input
+            keyboardType="email-address"
+          //onChangeText={(i) => {handleChange()}}
+          />
 
-        <Label>Senha:</Label>
-        <Input />
+          <Label>Senha:</Label>
+          <Input
+            secureTextEntry={true}
+          />
 
-        <NoLog onPress={() => handleNavigation("SignIn")}>
-          <Texto>Não possui conta?</Texto>
-        </NoLog>
+          <NoLog onPress={() => handleNavigation("SignIn")}>
+            <Texto>Não possui conta?</Texto>
+          </NoLog>
 
-        <Button onPress={() => handleNavigation("")}>
-          <ButtonText>Entrar</ButtonText>
-        </Button>
+          <Button onPress={handleLogIn}>
+            <ButtonText>Entrar</ButtonText>
+          </Button>
 
         </KeyboardAvoidingView>
       </Container>
-    </SafeAreaView>     
+    </SafeAreaView>
   );
-  
+
 }
 
 export default Login;
