@@ -1,5 +1,5 @@
-import { IResponseData } from "../interfaces/User";
-export function signIn(): Promise<IResponseData> {
+
+export function signIn() {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve({

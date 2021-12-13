@@ -1,9 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { Alert } from "react-native";
+import { IAuthContextData, IAuthenticate, IUser, IRegister } from '../interfaces';
 import api from '../services/api';
-import { IAuthContextData, IUser } from '../interfaces/User';
-import { signIn } from '../services/auth';
+import userApi from '../services/data/user';
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
@@ -20,32 +21,38 @@ export const AuthProvider: React.FC = ({ children }) => {
       if (storagedUser && storagedToken) {
         api.defaults.headers.common.Authorization = `Baerer ${storagedToken}`;
         setUser(JSON.parse(storagedUser));
-        setLoading(false);
       }
+      setLoading(false);
     }
 
     loadStorageData();
-  }, [])
+  }, []);
 
-  async function login() {
-    const response = await signIn();
+  async function signIn(userData: IRegister) {
+    const response = await userApi.register(userData);
+    setLoading(false);
+    Alert.alert("Cadastrado com sucesso! Faça seu login!");
+  }
 
-    setUser(response.user);
+  async function login(userData: IAuthenticate) {
+    const response = await userApi.authenticate(userData);
 
-    api.defaults.headers.common.Authorization = `Baerer ${response.token}`;
+    setUser(response.data.user);
 
-    await AsyncStorage.setItem('@ExpoTeste:user', JSON.stringify(response.user));
-    await AsyncStorage.setItem('@ExpoTeste:token', response.token);
+    api.defaults.headers.common.Authorization = `Baerer ${response.data.token}`;
+
+    await AsyncStorage.setItem('@ExpoTeste:user', JSON.stringify(user));
+    await AsyncStorage.setItem('@ExpoTeste:token', response.data.token);
   }
 
   function logout() {
     AsyncStorage.clear().then(() => {
       setUser(null);
-    })
+    });
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, loading, login, logout }}>
+    <AuthContext.Provider value={{ signed: !!user, user, loading, setLoading, signIn, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
