@@ -46,7 +46,7 @@ function SignIn({ navigation }: AuthTypes) {
 
           <Label>Nome:</Label>
           <Input
-            onChangeText={(i) => { storeAuthData({ nome: i }) }}
+            onChangeText={(i) => { storeAuthData({ name: i }) }}
           />
 
           <Label>Email:</Label>
@@ -63,7 +63,7 @@ function SignIn({ navigation }: AuthTypes) {
           />
 
           <Button onPress={handleSignIn}>
-            <ButtonText>Entrar</ButtonText>
+            <ButtonText>Cadastrar</ButtonText>
           </Button>
 
         </KeyboardAvoidingView>

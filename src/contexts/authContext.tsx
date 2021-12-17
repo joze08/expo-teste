@@ -15,13 +15,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStorageData() {
-      const storagedUser = await AsyncStorage.getItem('@ExpoTeste:user');
-      const storagedToken = await AsyncStorage.getItem('@ExpoTeste:token');
+      const storagedUser = await AsyncStorage.getItem('user');
+      const storagedToken = await AsyncStorage.getItem('token');
 
       if (storagedUser && storagedToken) {
         api.defaults.headers.common.Authorization = `Baerer ${storagedToken}`;
         setUser(JSON.parse(storagedUser));
       }
+
       setLoading(false);
     }
 
@@ -29,7 +30,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   async function signIn(userData: IRegister) {
-    const response = await userApi.register(userData);
+    await userApi.register(userData);
     setLoading(false);
     Alert.alert("Cadastrado com sucesso! Faça seu login!");
   }
@@ -41,8 +42,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     api.defaults.headers.common.Authorization = `Baerer ${response.data.token}`;
 
-    await AsyncStorage.setItem('@ExpoTeste:user', JSON.stringify(user));
-    await AsyncStorage.setItem('@ExpoTeste:token', response.data.token);
+    await AsyncStorage.setItem('user', JSON.stringify(user));
+    await AsyncStorage.setItem('token', response.data.token);
   }
 
   function logout() {

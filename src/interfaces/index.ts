@@ -35,7 +35,6 @@ export interface IRegister {
 }
 
 export interface IAuthenticate {
-  name: string;
   email: string;
   password: string;
 }
@@ -50,4 +49,6 @@ export interface IResponseAuthenticate {
     updated_at: string;
   }
 }
+
+
 
