@@ -3,19 +3,15 @@ import { IIndexResponse, IStoreData, IStoreResponse, IMethodsResponse } from '..
 
 class MessageData {
   index() {
-    return api.post<IIndexResponse>('/Messages');
+    return api.get<IIndexResponse[]>('/Messages');
   }
 
   store(data: IStoreData) {
     return api.post<IStoreResponse>('/Messages', data);
   }
 
-  show(id: number) {
-    return api.get<IMethodsResponse>(`/Messages/${id}`);
-  }
-
-  update(data: IStoreData, id: number) {
-    return api.put<IMethodsResponse>(`/Messages/${id}`, data);
+  show(id: string) {
+    return api.get<IMethodsResponse[]>(`/Messages/${id}`);
   }
 
   delete(id: number) {
@@ -23,4 +19,4 @@ class MessageData {
   }
 }
 
-export default new MessageData;
+export default new MessageData();

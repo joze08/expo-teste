@@ -10,9 +10,10 @@ function Login({ navigation }: AuthTypes) {
 
   const [data, setData] = useState({} as IAuthenticate);
 
-  const { login } = useAuth();
+  const { login, setLoading } = useAuth();
 
   function handleLogIn() {
+    setLoading(true);
     login(data);
   }
 
@@ -20,8 +21,8 @@ function Login({ navigation }: AuthTypes) {
     setData({ ...data, ...i })
   }
 
-  function handleNavigation(params: string) {
-    params === "SignIn" ? navigation.navigate('SignIn') : navigation.navigate('TabRoutes')
+  function handleNavigation() {
+    navigation.navigate('SignIn');
   }
 
   return (
@@ -47,7 +48,7 @@ function Login({ navigation }: AuthTypes) {
             onChangeText={(i) => { storeAuthData({ password: i }) }}
           />
 
-          <NoLog onPress={() => handleNavigation("SignIn")}>
+          <NoLog onPress={handleNavigation}>
             <Texto>Não possui conta?</Texto>
           </NoLog>
 

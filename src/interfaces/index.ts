@@ -6,6 +6,7 @@ export interface ILogin {
 export interface IAuthContextData {
   signed: boolean;
   user: IUser | null;
+  token: string | null;
   loading: boolean;
   setLoading(value: boolean): void;
   signIn(userData: IRegister): Promise<void>
@@ -22,6 +23,7 @@ export interface IResponseRegister {
 
 export interface IUser {
   id: number;
+  name: string;
   email: string;
   remember_me_token: null;
   created_at: string;
@@ -44,6 +46,7 @@ export interface IResponseAuthenticate {
   user: {
     id: number;
     email: string;
+    name: string;
     remember_me_token: null;
     created_at: string;
     updated_at: string;

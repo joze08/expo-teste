@@ -23,8 +23,8 @@ function SignIn({ navigation }: AuthTypes) {
   function handleSignIn() {
     //    try {
     //      if (data?.name && data.email && data.password) {
-    signIn(data);
     setLoading(true);
+    signIn(data);
     /*         //Alert.alert("Alguns campos não foram preenchidos!");
           } else {
             Alert.alert("Alguns campos não foram preenchidos!");

@@ -10,4 +10,4 @@ class UserData {
   }
 }
 
-export default new UserData;
+export default new UserData();

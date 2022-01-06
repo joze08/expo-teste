@@ -11,6 +11,7 @@ const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 export const AuthProvider: React.FC = ({ children }) => {
 
   const [user, setUser] = useState<IUser | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       if (storagedUser && storagedToken) {
         api.defaults.headers.common.Authorization = `Baerer ${storagedToken}`;
         setUser(JSON.parse(storagedUser));
+        setToken(storagedToken);
       }
 
       setLoading(false);
@@ -37,23 +39,26 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function login(userData: IAuthenticate) {
     const response = await userApi.authenticate(userData);
-
-    setUser(response.data.user);
+    setLoading(false);
 
     api.defaults.headers.common.Authorization = `Baerer ${response.data.token}`;
 
-    await AsyncStorage.setItem('user', JSON.stringify(user));
+    setUser(response.data.user);
+    setToken(response.data.token);
+
+    await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
     await AsyncStorage.setItem('token', response.data.token);
   }
 
-  function logout() {
-    AsyncStorage.clear().then(() => {
-      setUser(null);
-    });
+  async function logout() {
+    await AsyncStorage.removeItem('user');
+    await AsyncStorage.removeItem('token');
+    setUser(null);
+    setToken(null);
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, loading, setLoading, signIn, login, logout }}>
+    <AuthContext.Provider value={{ signed: !!token, user, token, loading, setLoading, signIn, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
