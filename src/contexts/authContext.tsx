@@ -20,7 +20,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const storagedToken = await AsyncStorage.getItem('token');
 
       if (storagedUser && storagedToken) {
-        api.defaults.headers.common.Authorization = `Baerer ${storagedToken}`;
+        api.defaults.headers.common.Authorization = `Bearer ${storagedToken}`;
         setUser(JSON.parse(storagedUser));
         setToken(storagedToken);
       }
@@ -41,7 +41,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const response = await userApi.authenticate(userData);
     setLoading(false);
 
-    api.defaults.headers.common.Authorization = `Baerer ${response.data.token}`;
+    api.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
 
     setUser(response.data.user);
     setToken(response.data.token);

@@ -34,16 +34,19 @@ export default function Messages({ navigation }: TabTypes) {
     setData(response.data);
   }
 
+  async function handleDelete(id: number) {
+    await messageApi.delete(id);
+    await loadCards();
+  }
+
   const loadCards = useCallback(async () => {
     const response = await messageApi.index();
-    //api.defaults.headers.common.Authorization = `Baerer ${token}`;
-    console.log(response.data);
     setData(response.data);
   }, []);
 
   useEffect(() => {
     navigation.addListener("focus", () => loadCards());
-  }, []);
+  }, [data]);
 
   return (
     <Container>
@@ -66,10 +69,10 @@ export default function Messages({ navigation }: TabTypes) {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <CardView texto={item.texto} />
+            <CardView texto={item.texto} id={item.id} buttonDelete={handleDelete} />
           )
           }
-          keyExtractor={item => item.id}
+          keyExtractor={item => String(item.id)}
 
         />)}
 

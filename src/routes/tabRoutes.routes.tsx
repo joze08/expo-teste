@@ -23,7 +23,7 @@ const TabRoutes = () => {
       initialRouteName={"Profile"}
     >
 
-      <Tab.Screen name="Perfil" component={Profile}
+      <Tab.Screen name="Profile" component={Profile}
         options={{
           tabBarIcon: () => {
             return (
@@ -33,7 +33,7 @@ const TabRoutes = () => {
         }}
       />
 
-      <Tab.Screen name="Notícias" component={News}
+      <Tab.Screen name="News" component={News}
         options={{
           tabBarIcon: () => {
             return (
@@ -44,8 +44,9 @@ const TabRoutes = () => {
         }}
       />
 
-      <Tab.Screen name="Mensagens" component={Messages}
+      <Tab.Screen name="Messages" component={Messages}
         options={{
+          title: "Mensagem",
           tabBarIcon: () => {
             return (
               <Icon name={"mail"} size={26} color={'#222'} />
@@ -58,7 +59,7 @@ const TabRoutes = () => {
         }}
       />
 
-      <Tab.Screen name="Enviar" component={SendMessage}
+      <Tab.Screen name="SendMessages" component={SendMessage}
         options={{
           tabBarIcon: () => {
             return (

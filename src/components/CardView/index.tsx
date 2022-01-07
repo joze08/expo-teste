@@ -6,14 +6,15 @@ import { Card, MessageCard, RaiseButton, ButtonText, TextMessage } from '../../s
 
 interface CardProps {
   texto: string;
+  id: number;
+  buttonDelete(id: number): void;
 }
 
-const CardView: React.FC<CardProps> = ({ texto }) => {
+const CardView: React.FC<CardProps> = ({ texto, id, buttonDelete }) => {
 
-  /* function handleDelete() {
-    messageApi.delete(id);
-  } */
-
+  function handleDelete() {
+    buttonDelete(id);
+  }
 
   return (
     <Card>
@@ -24,7 +25,7 @@ const CardView: React.FC<CardProps> = ({ texto }) => {
         </TextMessage>
       </MessageCard>
 
-      <RaiseButton /* onPress={handleDelete} */>
+      <RaiseButton onPress={handleDelete}>
         <ButtonText>Apagar</ButtonText>
       </RaiseButton>
 

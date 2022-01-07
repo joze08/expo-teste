@@ -6,8 +6,10 @@ import api from '../services/api';
 import { IStoreData } from '../interfaces/messages.interface';
 
 import { Container, HeaderTitle, InputText, ButtonText, SendButton } from '../styles/MessagesStyle';
+import { TabTypes } from '../types/AuthStack.types';
 
-function SendMessage() {
+
+function SendMessage({ navigation }: TabTypes) {
 
   const { token, setLoading } = useAuth();
 
@@ -21,7 +23,7 @@ function SendMessage() {
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
     await messageApi.store(message);
     setMessage({} as IStoreData);
-
+    navigation.navigate("Messages");
   }
 
   return (
@@ -35,7 +37,7 @@ function SendMessage() {
         onChangeText={(i) => { storeText({ texto: i }) }}
       />
 
-      <SendButton onPress={handleSendMessage}>
+      <SendButton onPress={handleSendMessage} >
         <ButtonText>Enviar</ButtonText>
       </SendButton>
 

@@ -14,8 +14,8 @@ export type AuthTypes = {
 export type TabBottomParamList = {
   Profile: undefined
   News: undefined
-  Message: undefined
-  SendMessage: undefined
+  Messages: undefined
+  SendMessages: undefined
 }
 
 type TabNavigationProp = StackNavigationProp<TabBottomParamList>
